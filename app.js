@@ -5,7 +5,7 @@
    Images: Dog CEO API + The Cat API (free, no auth).
    ══════════════════════════════════════════════════════ */
 
-const GROQ_API_KEY = '';
+const GROQ_API_KEY = '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';
 
 /* ──────────────────────────────────────────────────────
    PET PROFILE TEMPLATES  (images fetched from free APIs)
