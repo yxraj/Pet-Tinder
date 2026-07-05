@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>PawSwipe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- ═══════════════════ APP SHELL ═══════════════════ -->
+  <div id="app">
+
+    <!-- HEADER -->
+    <header id="header">
+      <button id="btn-settings" aria-label="Open settings">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
+          <circle cx="12" cy="12" r="3"/>
+        </svg>
+      </button>
+
+      <div class="logo">
+        <svg class="logo-paw" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+          <ellipse cx="6" cy="7" rx="1.7" ry="2.5"/>
+          <ellipse cx="10.5" cy="4.5" rx="1.7" ry="2.5"/>
+          <ellipse cx="15" cy="4.5" rx="1.7" ry="2.5"/>
+          <ellipse cx="19" cy="7" rx="1.7" ry="2.5"/>
+          <path d="M12 10c-3.5 0-6.5 2-7 5.5-.3 1.9.4 3.5 2 4.1 1.2.5 2.4.4 3.6-.2.4-.2.9-.2 1.4 0 1.2.6 2.4.7 3.6.2 1.6-.6 2.3-2.2 2-4.1-.5-3.5-3.1-5.5-5.6-5.5z"/>
+        </svg>
+        <span>PawSwipe</span>
+      </div>
+
+      <div class="profile-btn-wrap">
+        <button id="btn-profile" aria-label="Open profile">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>
+        </button>
+        <span id="liked-badge" class="liked-badge hidden">0</span>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main id="main">
+
+      <!-- LOADING STATE -->
+      <div id="loading-state" class="loading-state hidden">
+        <div class="loading-card">
+          <div class="loading-img-area">
+            <div class="shimmer"></div>
+            <div class="loading-paw">
+              <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="currentColor" stroke="none" opacity="0.4">
+                <ellipse cx="6" cy="7" rx="1.7" ry="2.5"/><ellipse cx="10.5" cy="4.5" rx="1.7" ry="2.5"/>
+                <ellipse cx="15" cy="4.5" rx="1.7" ry="2.5"/><ellipse cx="19" cy="7" rx="1.7" ry="2.5"/>
+                <path d="M12 10c-3.5 0-6.5 2-7 5.5-.3 1.9.4 3.5 2 4.1 1.2.5 2.4.4 3.6-.2.4-.2.9-.2 1.4 0 1.2.6 2.4.7 3.6.2 1.6-.6 2.3-2.2 2-4.1-.5-3.5-3.1-5.5-5.6-5.5z"/>
+              </svg>
+            </div>
+          </div>
+          <div class="loading-body">
+            <div class="loading-row">
+              <div class="shimmer-block w130"></div>
+              <div class="shimmer-block w56"></div>
+            </div>
+            <div class="shimmer-block w96 mt2"></div>
+            <div class="loading-tags">
+              <div class="shimmer-block w60 tag"></div>
+              <div class="shimmer-block w72 tag"></div>
+              <div class="shimmer-block w56 tag"></div>
+            </div>
+            <div class="shimmer-block w192 mt4"></div>
+          </div>
+        </div>
+        <p class="loading-label">Finding adorable pets nearby...</p>
+      </div>
+
+      <!-- CARD STACK -->
+      <div id="card-stack" class="card-stack hidden">
+        <!-- Cards inserted by JS -->
+      </div>
+
+      <!-- EMPTY STATE -->
+      <div id="empty-state" class="empty-state hidden">
+        <div class="empty-emoji">😴</div>
+        <h2>You've seen all pets nearby!</h2>
+        <p>We're out of furry friends in your area for now. Check back tomorrow for more adorable faces.</p>
+        <div class="empty-actions">
+          <button id="btn-undo-empty" class="btn-secondary btn-icon hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>
+            Undo last swipe
+          </button>
+          <button id="btn-reset" class="btn-accent btn-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+            Find more pets
+          </button>
+        </div>
+      </div>
+
+      <!-- ACTION BUTTONS -->
+      <div id="action-buttons" class="action-buttons hidden">
+        <button id="btn-undo" class="action-btn action-sm" aria-label="Undo last swipe" disabled>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>
+        </button>
+        <button id="btn-pass" class="action-btn action-lg pass" aria-label="Pass on this pet">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+        <button id="btn-like" class="action-btn action-lg like" aria-label="Adopt this pet">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+        </button>
+        <button id="btn-superlike" class="action-btn action-sm superlike" aria-label="Super like this pet">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </button>
+      </div>
+
+    </main>
+
+    <!-- BACKGROUND BLOBS -->
+    <div class="blob blob-top"></div>
+    <div class="blob blob-bottom"></div>
+  </div>
+
+  <!-- ═══════════════════ MATCH OVERLAY ═══════════════════ -->
+  <div id="match-overlay" class="overlay hidden">
+    <div id="match-particles" class="match-particles"></div>
+    <div id="match-card" class="match-card">
+      <div class="match-card-top-bg"></div>
+      <h2 class="match-title">It's a Match!</h2>
+      <p class="match-subtitle" id="match-subtitle">You and <span id="match-pet-name"></span> have liked each other.</p>
+      <div class="match-photo-wrap">
+        <img id="match-pet-img" src="" alt="" class="match-photo" />
+        <div class="match-ring ring1"></div>
+        <div class="match-ring ring2"></div>
+      </div>
+      <div class="match-actions">
+        <div class="woof-btn-wrap" id="woof-btn-wrap">
+          <div id="woof-particles" class="woof-particles"></div>
+          <button id="btn-woof" class="btn-primary match-action-btn">Send a Woof</button>
+        </div>
+        <button id="btn-keep-swiping" class="btn-secondary match-action-btn">Keep Swiping</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ CHAT SHEET ═══════════════════ -->
+  <div id="chat-backdrop" class="overlay-backdrop hidden"></div>
+  <div id="chat-sheet" class="chat-sheet sheet hidden">
+    <div class="chat-header">
+      <div class="chat-avatar-wrap">
+        <img id="chat-pet-img" src="" alt="" class="chat-avatar" />
+        <span class="online-dot"></span>
+      </div>
+      <div class="chat-header-info">
+        <p id="chat-pet-name" class="chat-pet-name"></p>
+        <p id="chat-status" class="chat-status">Online</p>
+      </div>
+      <button id="btn-close-chat" class="close-btn" aria-label="Close chat">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+    </div>
+    <div id="chat-messages" class="chat-messages"></div>
+    <div class="chat-input-bar">
+      <input id="chat-input" type="text" placeholder="Message..." autocomplete="off" />
+      <button id="btn-send" class="send-btn" aria-label="Send message">
+        <svg id="send-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+        <svg id="paw-icon" class="hidden" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><ellipse cx="6" cy="7" rx="1.7" ry="2.5"/><ellipse cx="10.5" cy="4.5" rx="1.7" ry="2.5"/><ellipse cx="15" cy="4.5" rx="1.7" ry="2.5"/><ellipse cx="19" cy="7" rx="1.7" ry="2.5"/><path d="M12 10c-3.5 0-6.5 2-7 5.5-.3 1.9.4 3.5 2 4.1 1.2.5 2.4.4 3.6-.2.4-.2.9-.2 1.4 0 1.2.6 2.4.7 3.6.2 1.6-.6 2.3-2.2 2-4.1-.5-3.5-3.1-5.5-5.6-5.5z"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ SETTINGS SHEET ═══════════════════ -->
+  <div id="settings-backdrop" class="overlay-backdrop hidden"></div>
+  <div id="settings-sheet" class="sheet bottom-sheet hidden">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <h2>Settings</h2>
+      <button id="btn-close-settings" class="close-btn" aria-label="Close settings">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+    </div>
+    <div class="sheet-body">
+      <div class="setting-group">
+        <p class="setting-label">Show me</p>
+        <div class="pill-group" id="species-pills">
+          <button class="pill active" data-value="all">All Pets</button>
+          <button class="pill" data-value="dog">Dogs</button>
+          <button class="pill" data-value="cat">Cats</button>
+          <button class="pill" data-value="small">Small Pets</button>
+        </div>
+      </div>
+      <div class="setting-group">
+        <p class="setting-label">Max distance</p>
+        <div class="pill-group" id="distance-pills">
+          <button class="pill" data-value="5">5 mi</button>
+          <button class="pill" data-value="10">10 mi</button>
+          <button class="pill" data-value="25">25 mi</button>
+          <button class="pill active" data-value="any">Any</button>
+        </div>
+      </div>
+      <div class="setting-row">
+        <div class="setting-row-left">
+          <span id="sound-icon-wrap" class="sound-icon">
+            <svg id="icon-vol" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            <svg id="icon-mute" class="hidden" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="22" y1="9" x2="16" y2="15"/><line x1="16" y1="9" x2="22" y2="15"/></svg>
+          </span>
+          <div>
+            <p class="setting-row-title">Sound effects</p>
+            <p id="sound-status" class="setting-row-sub">On</p>
+          </div>
+        </div>
+        <button id="sound-toggle" class="toggle-pill active" role="switch" aria-checked="true" aria-label="Toggle sound effects">
+          <span class="toggle-thumb"></span>
+        </button>
+      </div>
+      <button id="btn-apply-settings" class="btn-accent w-full">Apply &amp; Reset Deck</button>
+    </div>
+    <div class="sheet-footer-spacer"></div>
+  </div>
+
+  <!-- ═══════════════════ PROFILE SHEET ═══════════════════ -->
+  <div id="profile-backdrop" class="overlay-backdrop hidden"></div>
+  <div id="profile-sheet" class="sheet bottom-sheet profile-sheet hidden">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <h2>Your Profile</h2>
+      <button id="btn-close-profile" class="close-btn" aria-label="Close profile">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+    </div>
+    <div class="sheet-body profile-body">
+      <div class="profile-avatar-wrap">
+        <div class="profile-avatar">
+          <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="currentColor" stroke="none" opacity="0.6">
+            <ellipse cx="6" cy="7" rx="1.7" ry="2.5"/><ellipse cx="10.5" cy="4.5" rx="1.7" ry="2.5"/>
+            <ellipse cx="15" cy="4.5" rx="1.7" ry="2.5"/><ellipse cx="19" cy="7" rx="1.7" ry="2.5"/>
+            <path d="M12 10c-3.5 0-6.5 2-7 5.5-.3 1.9.4 3.5 2 4.1 1.2.5 2.4.4 3.6-.2.4-.2.9-.2 1.4 0 1.2.6 2.4.7 3.6.2 1.6-.6 2.3-2.2 2-4.1-.5-3.5-3.1-5.5-5.6-5.5z"/>
+          </svg>
+        </div>
+        <h3 class="profile-name">Pawsy McPawface</h3>
+        <p class="profile-sub">Animal lover &amp; professional petter</p>
+      </div>
+      <div class="stats-grid" id="stats-grid">
+        <div class="stat-card">
+          <span class="stat-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg>
+          </span>
+          <span id="stat-swiped" class="stat-value">0</span>
+          <span class="stat-label">Swiped</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-icon accent-heart">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+          </span>
+          <span id="stat-adopted" class="stat-value">0</span>
+          <span class="stat-label">Adopted</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="none" opacity="0.5"><ellipse cx="6" cy="7" rx="1.7" ry="2.5"/><ellipse cx="10.5" cy="4.5" rx="1.7" ry="2.5"/><ellipse cx="15" cy="4.5" rx="1.7" ry="2.5"/><ellipse cx="19" cy="7" rx="1.7" ry="2.5"/><path d="M12 10c-3.5 0-6.5 2-7 5.5-.3 1.9.4 3.5 2 4.1 1.2.5 2.4.4 3.6-.2.4-.2.9-.2 1.4 0 1.2.6 2.4.7 3.6.2 1.6-.6 2.3-2.2 2-4.1-.5-3.5-3.1-5.5-5.6-5.5z"/></svg>
+          </span>
+          <span id="stat-passed" class="stat-value">0</span>
+          <span class="stat-label">Passed</span>
+        </div>
+      </div>
+      <div class="liked-pets-section">
+        <div class="section-heading">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+          <span id="adopted-heading">Adopted (0)</span>
+        </div>
+        <div id="liked-pets-grid" class="liked-pets-grid">
+          <div class="no-pets-empty">
+            <div class="empty-paw-icon">🐾</div>
+            <p>No pets adopted yet. Start swiping to find your match!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="sheet-footer-spacer"></div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
